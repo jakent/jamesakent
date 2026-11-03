@@ -12,6 +12,7 @@ Feature: Routing
 
   Rule: The REPL stays available at /repl
 
+    @stack
     Scenario: A visitor opens the REPL
       When a visitor opens "/repl"
       Then the response is successful
@@ -19,6 +20,7 @@ Feature: Routing
 
   Rule: www redirects to the bare domain
 
+    @stack
     Scenario: A visitor opens the www host
       When a visitor opens "/" on the "www" host
       Then they are redirected permanently to the bare domain

@@ -18,6 +18,9 @@ where specs and docs live).
 - Step definitions are one line and only call the DSL.
 - Testability is a design rule: inject the clock, put external calls behind
   interfaces with fakes, scope config per request.
+- Do not add `Co-Authored-By` or "Generated with" attribution lines to commits
+  or PR descriptions. Agent involvement is already visible through the issue,
+  the change folder and the PR trail.
 - Secrets are never committed. Deployment belongs to the droplet-infra repo.
 
 ## Commands
