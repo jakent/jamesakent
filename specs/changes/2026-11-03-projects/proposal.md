@@ -15,13 +15,13 @@ loop (feature -> steps -> DSL -> drivers -> code).
 Out of scope: hosting the demos on subdomains (separate change); the REPL and
 `jak` CLI listing projects (later drivers).
 
-## Open questions for the owner
-- Initial project list and wording. Draft: Clojure REPL, Game of Three,
+## Decisions (owner, 2026-11-03)
+- Initial project list and wording as drafted: Clojure REPL, Game of Three,
   Game of Three-D, Game of Biff, Game of Clojure.
-- Demo URLs are placeholders until the subdomains exist (`life.`, `life3d.`).
-  Until then should demo scenarios run against fixture content, or should the
-  live demos be hosted first?
-- Is `kind` worth keeping, or should "has a demo" just mean `demo_url` is set?
+- Fixtures first: acceptance scenarios run in-process against fixture content
+  (`acceptance/fixtures/projects.yaml`). Demo URLs in the real content may point
+  at subdomains that do not exist yet.
+- No `kind` field. "Has a live demo" means `demo_url` is set.
 
 ## Testability
 - Content is data, loaded through an interface, so scenarios can use a fixture set.
