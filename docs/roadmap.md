@@ -187,7 +187,7 @@ Other features:
     | `reviewer` | Read-only; runs the `review-pr` checks |
     | `infra` | droplet-infra, via `--add-dir` |
 
-19. `agent.yml`: when an issue is labeled `agent` and has a linked change folder, headless Claude Code moves the card to Agent, creates a branch, opens a PR and moves the card to Review. CI runs and you review. Adapt droplet-infra's `claude.yml`. A CI guard fails any agent PR that touches `specs/features/**`. Agents never get prod credentials.
+19. `agent.yml`: when an issue is labeled `agent` and has a linked change folder, headless Claude Code moves the card to Agent, creates a branch, opens a PR and moves the card to Review. CI runs and you review. Adapt droplet-infra's `claude.yml`. CODEOWNERS requires the owner's approval for any change under `specs/features/**`, so agents can propose specs but not merge them. A CI guard also fails an `implementer` PR that touches `specs/features/**`; spec changes go in a separate `spec-writer` PR. Agents never get prod credentials.
 20. L3 (later):
     - a nightly `@smoke` that files an issue with a trace link when it fails
     - dependency-bump agents
@@ -216,7 +216,7 @@ Other features:
 - Factory check: open an `agent-eligible` issue (e.g. "add game-of-biff to projects") with a change folder and label it `agent`. Confirm that:
   - the card moves across `/work`
   - the agent opens a PR and CI is green
-  - no `specs/features/**` file is touched
+  - no `specs/features/**` file is touched (spec changes arrive in their own PR for your approval)
   - you only had to review
 
 ## Files touched outside the new repo

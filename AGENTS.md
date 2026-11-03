@@ -5,7 +5,9 @@ Personal site for jamesakent.com, built spec-first. Start with
 where specs and docs live).
 
 ## Layout
-- `specs/features/` — Gherkin features. **Human-owned. Agents never edit these.**
+- `specs/features/` — Gherkin features. **Human-owned.** Agents may propose new or
+  changed features in a PR of their own (spec-writer work); CODEOWNERS requires
+  the owner's approval before they merge. Implementation PRs must not touch them.
 - `specs/model/` — entity model and glossary (Markdown)
 - `specs/changes/<date>-<name>/` — proposal, tasks, optional design
 - `docs/roadmap.md`, `docs/adr/` — living roadmap and append-only decisions

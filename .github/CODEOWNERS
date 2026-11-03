@@ -1,0 +1,3 @@
+# Behavior specs are human-owned: agents may propose new or changed features
+# in a PR, but nothing under specs/features/ merges without this owner's approval.
+/specs/features/ @jakent
