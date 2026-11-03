@@ -1,0 +1,7 @@
+# Fixture profile for in-process runs. Placeholder text, replaced later.
+name: James Kent
+headline: "Placeholder headline: software engineer."
+now: "Placeholder: building this site spec-first."
+contact:
+  - label: GitHub
+    url: https://github.com/jakent
