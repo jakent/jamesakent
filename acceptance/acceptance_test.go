@@ -29,7 +29,15 @@ func TestFeatures(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		srv := httptest.NewServer(web.Handler(projects))
+		pdata, err := os.ReadFile("fixtures/profile.yaml")
+		if err != nil {
+			t.Fatal(err)
+		}
+		profile, err := content.ParseProfile(pdata)
+		if err != nil {
+			t.Fatal(err)
+		}
+		srv := httptest.NewServer(web.Handler(projects, profile))
 		defer srv.Close()
 		baseURL = srv.URL
 		if tags == "" {
