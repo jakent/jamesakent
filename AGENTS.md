@@ -15,6 +15,11 @@ where specs and docs live).
 - `internal/` — shared packages used by the site, CLI and (later) MCP server
 - `acceptance/` — godog suite: steps → DSL → drivers
 
+## Workflow
+One change at a time, in this order, each a skill in `.claude/skills/`:
+`change` -> `write-feature` (owner approves) -> `implement-steps` -> `implement`.
+Spec PRs and implementation PRs are always separate.
+
 ## Rules
 - Behavior lives only in `.feature` files. Markdown holds everything else.
 - Step definitions are one line and only call the DSL.
