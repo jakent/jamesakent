@@ -21,3 +21,20 @@ Invariants
 - `demo_url` is on the jamesakent.com domain or one of its subdomains.
 
 Source of truth: `content/projects.yaml`.
+
+## Profile
+Who the site is about. There is exactly one.
+
+| Field | Meaning |
+|---|---|
+| `name` | Display name. **Required.** |
+| `headline` | One-line description. **Required.** |
+| `now` | What James is working on at the moment. **Required.** Free text |
+| `contact` | List of contact links, each with a `label` and a `url` |
+
+Invariants
+- `name`, `headline` and `now` are non-empty.
+- There is at least one contact link.
+- Every contact `url` is `https` or `mailto`.
+
+Source of truth: `content/profile.yaml`.

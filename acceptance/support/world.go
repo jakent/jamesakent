@@ -12,4 +12,6 @@ type World struct {
 	Last drivers.Response
 	// Projects is the most recent project listing a scenario received.
 	Projects []drivers.Project
+	// Profile is the most recent profile a scenario read.
+	Profile drivers.Profile
 }
