@@ -1,0 +1,33 @@
+# Source of truth for the projects the site showcases. Rules: specs/model/entities.md
+- id: clojure-repl
+  title: Clojure REPL
+  summary: A sandboxed Clojure REPL in the browser, built with Biff and SCI.
+  tags: [clojure, repl, biff, htmx]
+  source_url: https://github.com/jakent/biff-repl
+  demo_url: https://jamesakent.com/repl
+
+- id: game-of-three
+  title: Game of Three
+  summary: Conway's Game of Life in ClojureScript with Reagent.
+  tags: [clojurescript, reagent, game-of-life]
+  source_url: https://github.com/jakent/game-of-three
+  demo_url: https://life.jamesakent.com
+
+- id: game-of-three-d
+  title: Game of Three-D
+  summary: Conway's Game of Life in three dimensions, in ClojureScript.
+  tags: [clojurescript, webgl, game-of-life]
+  source_url: https://github.com/jakent/game-of-three-d
+  demo_url: https://life3d.jamesakent.com
+
+- id: game-of-biff
+  title: Game of Biff
+  summary: Game of Life as a Biff and HTMX server app.
+  tags: [clojure, biff, htmx, game-of-life]
+  source_url: https://github.com/jakent/game-of-biff
+
+- id: game-of-clojure
+  title: Game of Clojure
+  summary: Game of Life as a desktop Clojure program.
+  tags: [clojure, game-of-life]
+  source_url: https://github.com/jakent/game-of-clojure

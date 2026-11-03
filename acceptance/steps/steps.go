@@ -24,6 +24,18 @@ func Register(sc *godog.ScenarioContext, d drivers.Driver, domain string) {
 	sc.Step(`^the response is successful$`, func() error { return dsl.ResponseIsSuccessful(w) })
 	sc.Step(`^the page is served by the site$`, func() error { return dsl.PageIsServedBySite(w) })
 	sc.Step(`^the page is served by the REPL$`, func() error { return dsl.PageIsServedByRepl(w) })
+	sc.Step(`^a visitor lists the projects$`, func(ctx context.Context) error { return dsl.ListProjects(ctx, w) })
+	sc.Step(`^a visitor lists the projects tagged "([^"]*)"$`, func(ctx context.Context, tag string) error {
+		return dsl.ListProjectsTagged(ctx, w, tag)
+	})
+	sc.Step(`^every project links to its source repository$`, func() error { return dsl.EveryProjectLinksToItsSource(w) })
+	sc.Step(`^"([^"]*)" has a live demo$`, func(title string) error { return dsl.ProjectHasLiveDemo(w, title) })
+	sc.Step(`^"([^"]*)" has no live demo$`, func(title string) error { return dsl.ProjectHasNoLiveDemo(w, title) })
+	sc.Step(`^"([^"]*)" has a live demo at "([^"]*)"$`, func(title, path string) error {
+		return dsl.ProjectHasLiveDemoAt(w, title, path)
+	})
+	sc.Step(`^every listed project is tagged "([^"]*)"$`, func(tag string) error { return dsl.EveryListedProjectIsTagged(w, tag) })
+	sc.Step(`^"([^"]*)" is not listed$`, func(title string) error { return dsl.ProjectIsNotListed(w, title) })
 	sc.Step(`^they are redirected permanently to the bare domain$`, func() error {
 		return dsl.RedirectedPermanentlyToBareDomain(w)
 	})
