@@ -7,3 +7,8 @@ import _ "embed"
 //
 //go:embed projects.yaml
 var Projects []byte
+
+// Profile is the raw content/profile.yaml.
+//
+//go:embed profile.yaml
+var Profile []byte

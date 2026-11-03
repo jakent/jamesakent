@@ -1,0 +1,8 @@
+# Source of truth for the About page. Rules: specs/model/entities.md
+# PLACEHOLDER text: replace the headline and "now" before the site goes public.
+name: James Kent
+headline: "Placeholder headline: software engineer."
+now: "Placeholder: building this site spec-first, with agents."
+contact:
+  - label: GitHub
+    url: https://github.com/jakent

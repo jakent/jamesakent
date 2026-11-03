@@ -27,9 +27,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	profile, err := content.ParseProfile(sitecontent.Profile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	addr := ":" + envOr("PORT", "8080")
 	log.Printf("site listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, otelhttp.NewHandler(web.Handler(projects), "site")))
+	log.Fatal(http.ListenAndServe(addr, otelhttp.NewHandler(web.Handler(projects, profile), "site")))
 }
 
 func envOr(key, def string) string {

@@ -36,6 +36,14 @@ func Register(sc *godog.ScenarioContext, d drivers.Driver, domain string) {
 	})
 	sc.Step(`^every listed project is tagged "([^"]*)"$`, func(tag string) error { return dsl.EveryListedProjectIsTagged(w, tag) })
 	sc.Step(`^"([^"]*)" is not listed$`, func(title string) error { return dsl.ProjectIsNotListed(w, title) })
+	sc.Step(`^a visitor reads the About page$`, func(ctx context.Context) error { return dsl.ReadAboutPage(ctx, w) })
+	sc.Step(`^the profile has a name and a headline$`, func() error { return dsl.ProfileHasNameAndHeadline(w) })
+	sc.Step(`^the profile says what James is working on now$`, func() error { return dsl.ProfileSaysWhatJamesIsWorkingOnNow(w) })
+	sc.Step(`^there is at least one contact link$`, func() error { return dsl.AtLeastOneContactLink(w) })
+	sc.Step(`^every contact link is a secure web link or an email link$`, func() error {
+		return dsl.EveryContactLinkIsSecureOrEmail(w)
+	})
+	sc.Step(`^the page links to the About page$`, func() error { return dsl.PageLinksToAboutPage(w) })
 	sc.Step(`^they are redirected permanently to the bare domain$`, func() error {
 		return dsl.RedirectedPermanentlyToBareDomain(w)
 	})
