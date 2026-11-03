@@ -1,6 +1,6 @@
 ---
 name: write-feature
-description: Draft or change a Gherkin feature file for an existing change proposal, for the owner to approve. Use after the change skill, before any steps or code. Spec-only PR; never merged without the owner's approval.
+description: Draft or change a Gherkin feature file for an existing change proposal, for the owner to approve. Use after the change skill, before any steps or code. Spec-only PR whose CI is expected to be red until the implementation is stacked into it; never merged without the owner's approval.
 ---
 
 # write-feature
@@ -30,8 +30,12 @@ implementation changes in one PR.
 6. Branch `spec-<name>`, commit, push, open a PR titled "Spec: <name> (for owner
    approval)". The body lists the rules added and any wording you were unsure about.
 7. Stop. Do not start `implement-steps` until the owner approves the feature.
-   If they have approved but not merged, implementation may proceed on a stacked
-   branch (see `implement`).
+   The owner approves by saying so, not by merging: this PR's CI is **expected
+   to be red** (undefined steps fail the strict suite), so it must not be merged
+   on its own, or `main` goes red. Once approved, implementation proceeds on a
+   branch stacked on this one (see `implement`), and the two land together in
+   the order given there.
 
 ## Done when
-The feature parses, its steps are undefined (not broken), and the spec PR is open.
+The feature parses, its steps are undefined (not broken), and the spec PR is
+open and labelled in its body as "do not merge before the implementation PR".

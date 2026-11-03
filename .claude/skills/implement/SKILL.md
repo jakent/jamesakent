@@ -33,12 +33,19 @@ it through a PR.
 7. Commit small, imperative messages. Branch `implement-<name>`. Open a PR whose
    body lists scope, what you checked (and how), and known gaps. Say if no
    `specs/features/` file changed.
-8. If the spec PR is not merged yet, open this PR stacked with `--base spec-<name>`;
-   it retargets to `main` when the spec merges. CI only runs on PRs to `main`,
-   so run the full suite locally and say so.
+8. Branch from the spec branch and open this PR stacked with `--base spec-<name>`.
+   The spec PR alone has red CI (undefined steps), so it never merges first.
+   CI only runs on PRs to `main`, so run the full suite locally and say so.
 9. Do not merge. Review and merge are the owner's (agent PRs need their
-   approval; branch protection enforces it).
-10. After the PR merges: move `specs/changes/<folder>/` to
+   approval; branch protection enforces it). State the merge order in the PR
+   body, top of the stack first:
+   1. merge this PR into `spec-<name>` (no review needed; its base is not `main`);
+   2. wait for CI to rerun on the spec PR, which now contains spec and
+      implementation and should be green;
+   3. merge the spec PR into `main` (needs the owner's code-owner approval for
+      `specs/features/`).
+   Specs and their implementation always land together.
+10. After both merge: move `specs/changes/<folder>/` to
     `specs/changes/archive/` in a small follow-up PR and close the issue.
 
 ## Done when
