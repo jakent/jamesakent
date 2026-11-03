@@ -101,3 +101,46 @@ func text(n *html.Node) string {
 	walk(n)
 	return strings.TrimSpace(b.String())
 }
+
+// GetProfile reads the About page. Markup contract the page must follow:
+//
+//	<h1 class="name">…</h1> <p class="headline">…</p> <p class="now">…</p>
+//	<ul class="contact"><li><a href="…">label</a></li>…</ul>
+func (d *Web) GetProfile(ctx context.Context) (Profile, error) {
+	res, err := d.Get(ctx, "", "/about")
+	if err != nil {
+		return Profile{}, err
+	}
+	if res.Status != 200 {
+		return Profile{}, fmt.Errorf("GET /about: status %d", res.Status)
+	}
+	doc, err := html.Parse(strings.NewReader(res.Body))
+	if err != nil {
+		return Profile{}, err
+	}
+	var p Profile
+	var inContact bool
+	var walk func(*html.Node)
+	walk = func(n *html.Node) {
+		if n.Type == html.ElementNode {
+			switch {
+			case n.Data == "h1" && hasClass(n, "name"):
+				p.Name = text(n)
+			case n.Data == "p" && hasClass(n, "headline"):
+				p.Headline = text(n)
+			case n.Data == "p" && hasClass(n, "now"):
+				p.Now = text(n)
+			case n.Data == "ul" && hasClass(n, "contact"):
+				inContact = true
+				defer func() { inContact = false }()
+			case n.Data == "a" && inContact:
+				p.Contact = append(p.Contact, Contact{Label: text(n), URL: attr(n, "href")})
+			}
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			walk(c)
+		}
+	}
+	walk(doc)
+	return p, nil
+}
