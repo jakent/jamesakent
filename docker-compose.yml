@@ -1,0 +1,39 @@
+# Local stack mirroring production routing. `make up` / `make down`.
+name: jamesakent
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "${PUBLIC_PORT:-8000}:80"
+    volumes:
+      - ./deploy/caddy/Caddyfile.local:/etc/caddy/Caddyfile:ro
+    environment:
+      # Caddy exports OTLP over HTTP (4318); the Go site uses gRPC (4317).
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      OTEL_SERVICE_NAME: caddy
+      PUBLIC_PORT: ${PUBLIC_PORT:-8000}
+    depends_on: [site, biff-repl, jaeger]
+
+  site:
+    build: .
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
+      OTEL_SERVICE_NAME: site
+
+  biff-repl:
+    # Pushed image by default; set BIFF_REPL_IMAGE to use a locally built one.
+    image: ${BIFF_REPL_IMAGE:-ghcr.io/jakent/biff-repl:latest}
+    environment:
+      BIFF_HOST: 0.0.0.0
+      BIFF_PORT: "8080"
+      BIFF_BASE_URL: http://localhost:${PUBLIC_PORT:-8000}
+      # Local-only placeholders; real secrets live in droplet-infra's env files.
+      DOMAIN: localhost
+      COOKIE_SECRET: AAAAAAAAAAAAAAAAAAAAAA==
+      JWT_SECRET: local-dev-only-not-a-secret-local-dev-only
+
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    # Ingest (4317/4318) stays on the compose network; only the query UI is routed.
+    expose: ["4317", "4318", "16686"]

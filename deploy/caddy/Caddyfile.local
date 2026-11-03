@@ -1,0 +1,29 @@
+# Local mirror of the production routing in droplet-infra/Caddyfile.
+# Plain HTTP on *.localhost; production adds TLS and the real domain.
+{
+	auto_https off
+	servers {
+		trace
+	}
+}
+
+http://localhost {
+	tracing {
+		span caddy
+	}
+	@repl path /repl /repl/* /css/* /js/* /img/*
+	handle @repl {
+		reverse_proxy biff-repl:8080
+	}
+	handle {
+		reverse_proxy site:8080
+	}
+}
+
+http://www.localhost {
+	redir http://localhost:{$PUBLIC_PORT}{uri} permanent
+}
+
+http://traces.localhost {
+	reverse_proxy jaeger:16686
+}
