@@ -29,3 +29,8 @@ where specs and docs live).
 - `make run` — start the site on :8080
 - `make test` — unit tests
 - `make vet` — go vet
+- `make acceptance` — scenarios against the site in-process (skips `@stack`)
+- `make up` / `make down` — local stack (Caddy, site, biff-repl, Jaeger) on
+  http://localhost:8000 (override with `PUBLIC_PORT`); Jaeger UI at
+  http://traces.localhost:8000
+- `make acceptance-stack` — all scenarios, including `@stack`, against the running stack
