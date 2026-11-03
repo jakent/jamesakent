@@ -27,14 +27,16 @@ implementation changes in one PR.
    or invariants.
 5. Check it: `make acceptance` must run and report the new steps as undefined
    (that is the expected red). It must not report parse errors.
-6. Branch `spec-<name>`, commit, push, open a PR titled "Spec: <name> (for owner
-   approval)". The body lists the rules added and any wording you were unsure about.
+6. Branch `spec-<name>` **from `change-<name>`**, commit, push, and open a PR
+   with `--base change-<name>` (not `main`), titled "Spec: <name> (for owner
+   approval)". The body lists the rules added and any wording you were unsure
+   about, and says not to merge before the implementation PR.
 7. Stop. Do not start `implement-steps` until the owner approves the feature.
    The owner approves by saying so, not by merging: this PR's CI is **expected
    to be red** (undefined steps fail the strict suite), so it must not be merged
    on its own, or `main` goes red. Once approved, implementation proceeds on a
-   branch stacked on this one (see `implement`), and the two land together in
-   the order given there.
+   branch stacked on this one (see `implement`), and the three PRs land
+   together in the order given there.
 
 ## Done when
 The feature parses, its steps are undefined (not broken), and the spec PR is

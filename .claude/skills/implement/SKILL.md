@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Implement application code until an approved change's scenarios pass through every driver, then open the PR and archive the change folder after merge. Use after implement-steps. Never edits specs/features/.
+description: Implement application code until an approved change's scenarios pass through every driver, archive the change folder in the same PR, and open the top PR of the stack. Use after implement-steps. Never edits specs/features/.
 ---
 
 # implement
@@ -23,30 +23,31 @@ it through a PR.
 3. Run `make acceptance` after each task. All scenarios must pass through **every
    driver** (`api`, `web`, ...). A pass through only one driver is not done.
 4. Prove the tests can fail: temporarily break the behavior (for example drop a
-   field from the page) and confirm a scenario fails with a clear message. **Undo
-   the break by editing back, never with `git checkout <file>` on uncommitted
-   work**; commit or stash first. (A past `git checkout` here threw away an
-   uncommitted new handler.)
+   field from the page) and confirm a scenario fails with a clear message. **Commit
+   first, then break, then undo with `git checkout <file>`; never run `git
+   checkout <file>` on uncommitted work.** (A past `git checkout` here threw away
+   an uncommitted new handler.)
 5. If the change touches routing or the stack, also run `make up` and
    `make acceptance-stack`, then `make down` if you started it.
 6. Before pushing: `gofmt -l .` empty, `go vet ./...`, `go test ./... -count=1`.
-7. Commit small, imperative messages. Branch `implement-<name>`. Open a PR whose
-   body lists scope, what you checked (and how), and known gaps. Say if no
-   `specs/features/` file changed.
-8. Branch from the spec branch and open this PR stacked with `--base spec-<name>`.
-   The spec PR alone has red CI (undefined steps), so it never merges first.
-   CI only runs on PRs to `main`, so run the full suite locally and say so.
+7. Last task: move `specs/changes/<name>/` to `specs/changes/archive/<name>/` in
+   this PR, so the archive lands with the change and needs no follow-up PR.
+8. Commit small, imperative messages on `implement-<name>` (created from
+   `spec-<name>`). Open the PR with `--base spec-<name>`; its body lists scope,
+   what you checked (and how), what you did not check, and known gaps. Say if no
+   `specs/features/` file changed. CI only runs on PRs to `main`, so run the
+   full suite locally and say so.
 9. Do not merge. Review and merge are the owner's (agent PRs need their
    approval; branch protection enforces it). State the merge order in the PR
    body, top of the stack first:
-   1. merge this PR into `spec-<name>` (no review needed; its base is not `main`);
-   2. wait for CI to rerun on the spec PR, which now contains spec and
-      implementation and should be green;
-   3. merge the spec PR into `main` (needs the owner's code-owner approval for
-      `specs/features/`).
-   Specs and their implementation always land together.
-10. After both merge: move `specs/changes/<folder>/` to
-    `specs/changes/archive/` in a small follow-up PR and close the issue.
+   1. this PR into `spec-<name>` (no review needed; its base is not `main`);
+   2. the spec PR into `change-<name>` (no review needed);
+   3. wait for CI on the root PR (`change-<name>` -> `main`), which now holds
+      proposal, spec and implementation and should be green, then merge it
+      into `main`. It needs the owner's code-owner approval for
+      `specs/features/`; an owner who authored it uses the admin bypass.
+   The three PRs always land together; the root PR's "Closes #<issue>" closes
+   the issue.
 
 ## Done when
 All scenarios pass on every driver, unit tests and vet are green, and the PR is

@@ -1,12 +1,18 @@
 ---
 name: change
-description: Start a new change in this repo. Scaffolds specs/changes/<name>/ with a proposal (including the required Testability section) and opens the linked GitHub issue. Use when the owner wants a new feature, fix or content change, before any spec or code is written.
+description: Start a new change in this repo. Scaffolds specs/changes/<name>/ with a proposal (including the required Testability section), opens the linked GitHub issue and the root proposal PR. Use when the owner wants a new feature, fix or content change, before any spec or code is written.
 ---
 
 # change
 
-Every unit of work starts as a change folder plus a GitHub issue. Nothing else
-(features, steps, code) is written until the proposal exists.
+Every unit of work starts as a change folder, a GitHub issue and a proposal PR.
+Nothing else (features, steps, code) is written until the proposal exists.
+
+A change travels as a stack of three PRs, merged top first:
+`implement-<name>` -> `spec-<name>` -> `change-<name>` -> `main`. This skill
+creates the root of that stack. Intermediate merges need no review; only the
+root PR, which finally holds proposal, spec and implementation together, goes
+into `main` (see `implement` for the order).
 
 ## Steps
 1. Pick a short kebab-case name: `specs/changes/<name>/`. No date: git records when
@@ -28,10 +34,16 @@ Every unit of work starts as a change folder plus a GitHub issue. Nothing else
    only in `.feature` files, ADR 0001).
 4. Add `design.md` only if there is a real design choice. Decisions that outlive
    the change become an ADR in `docs/adr/`.
-5. Open the issue: `gh issue create --title "<title>" --body "Change: specs/changes/<folder>/\nCovers: <@req ids, once known>"`.
-   Put the issue number in the proposal's first line.
-6. Do not write the feature or any code. Hand off to `write-feature`.
+5. Open the issue. Build the body with `printf`, because `\n` inside a
+   double-quoted string is not a newline:
+   `gh issue create --title "<title>" --body "$(printf 'Change: specs/changes/<name>/\nCovers: @req to be assigned in write-feature\n\n<one-sentence summary>')"`.
+   Make the proposal's first line `Issue: #<number>`.
+6. Branch `change-<name>`, commit the proposal, push, and open the root PR against
+   `main`, titled "Change: <title> (proposal)". Its body links the issue, says
+   "Closes #<number>" so the issue closes when the stack lands, and says not to
+   merge until the spec and implementation PRs are merged into it.
+7. Do not write the feature or any code. Hand off to `write-feature`.
 
 ## Done when
-The folder and issue exist, open questions are listed, and the Testability
-section is filled in.
+The folder, issue and root PR exist, open questions are listed, and the
+Testability section is filled in.
