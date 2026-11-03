@@ -76,7 +76,7 @@ specs/
   features/                       # HUMAN-OWNED holdouts (CODEOWNERS + CI guard)
     routing.feature projects.feature tracing.feature work.feature cli.feature demos.feature [mcp.feature]
   model/  entities.md  glossary.md   # Project, Demo, Ticket (GitHub Issue view), Change
-  changes/<date>-<name>/  proposal.md  tasks.md  [design.md]   → changes/archive/
+  changes/<name>/  proposal.md  tasks.md  [design.md]   → changes/archive/
 content/  projects.yaml  about.md     # go:embed; validated by unit tests
 cmd/
   site/   # HTTP server (templ + htmx); mounts /mcp in phase 5

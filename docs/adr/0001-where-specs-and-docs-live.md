@@ -14,7 +14,7 @@ Everything an agent needs to work lives in the repo, in fixed places:
 |---|---|---|
 | Behavior (features, rules, acceptance criteria) | `specs/features/*.feature` | permanent, human-owned |
 | Entity model and glossary | `specs/model/` | permanent |
-| Change proposals (why, scope, tasks, testability) | `specs/changes/<date>-<name>/`, moved to `specs/changes/archive/` after merge | per change |
+| Change proposals (why, scope, tasks, testability) | `specs/changes/<name>/`, moved to `specs/changes/archive/` after merge | per change |
 | Architecture decisions | `docs/adr/NNNN-title.md` | permanent, append-only |
 | Roadmap | `docs/roadmap.md` | living; updated in the PR that changes it |
 | Agent instructions | `AGENTS.md` (`CLAUDE.md` imports it), `.claude/skills/`, `.claude/agents/` | permanent |

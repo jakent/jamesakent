@@ -1,6 +1,6 @@
 ---
 name: change
-description: Start a new change in this repo. Scaffolds specs/changes/<date>-<name>/ with a proposal (including the required Testability section) and opens the linked GitHub issue. Use when the owner wants a new feature, fix or content change, before any spec or code is written.
+description: Start a new change in this repo. Scaffolds specs/changes/<name>/ with a proposal (including the required Testability section) and opens the linked GitHub issue. Use when the owner wants a new feature, fix or content change, before any spec or code is written.
 ---
 
 # change
@@ -9,7 +9,9 @@ Every unit of work starts as a change folder plus a GitHub issue. Nothing else
 (features, steps, code) is written until the proposal exists.
 
 ## Steps
-1. Pick a short kebab-case name and today's date: `specs/changes/YYYY-MM-DD-<name>/`.
+1. Pick a short kebab-case name: `specs/changes/<name>/`. No date: git records when
+   a change started. If the name already exists in `specs/changes/` or
+   `specs/changes/archive/`, append `-2` (or a clearer word) so names stay unique.
 2. Read `docs/roadmap.md`, `specs/model/entities.md` and `specs/model/glossary.md`
    so the proposal uses existing vocabulary.
 3. Write `proposal.md` with these sections, no others unless needed:
