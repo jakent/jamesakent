@@ -42,4 +42,9 @@ Nothing below is decided; I will not guess any of it.
 5. Archive this folder after merge.
 
 ## Decisions
-_None yet._
+Provisional (owner said "use placeholders for now"); replace the content later
+without changing the spec.
+- Text: placeholder headline and "now" paragraph, clearly marked as placeholder.
+- Contact links: GitHub only, as a placeholder. No email address yet.
+- Employer: not named.
+- Route: separate `/about` page (assistant's default, not yet confirmed), linked from the home page.
