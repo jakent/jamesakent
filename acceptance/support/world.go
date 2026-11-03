@@ -10,4 +10,6 @@ type World struct {
 	Domain string
 	// Last is the most recent response a scenario received.
 	Last drivers.Response
+	// Projects is the most recent project listing a scenario received.
+	Projects []drivers.Project
 }

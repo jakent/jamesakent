@@ -8,6 +8,8 @@ import (
 
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 
+	sitecontent "github.com/jakent/jamesakent/content"
+	"github.com/jakent/jamesakent/internal/content"
 	"github.com/jakent/jamesakent/internal/telemetry"
 	"github.com/jakent/jamesakent/internal/web"
 )
@@ -20,9 +22,14 @@ func main() {
 	}
 	defer shutdown(ctx)
 
+	projects, err := content.ParseProjects(sitecontent.Projects)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	addr := ":" + envOr("PORT", "8080")
 	log.Printf("site listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, otelhttp.NewHandler(web.Handler(), "site")))
+	log.Fatal(http.ListenAndServe(addr, otelhttp.NewHandler(web.Handler(projects), "site")))
 }
 
 func envOr(key, def string) string {
