@@ -18,7 +18,10 @@ where specs and docs live).
 ## Workflow
 One change at a time, in this order, each a skill in `.claude/skills/`:
 `change` -> `write-feature` (owner approves) -> `implement-steps` -> `implement`.
-Spec PRs and implementation PRs are always separate.
+Spec PRs and implementation PRs are always separate, but they land together as a
+stack: `implement-<name>` -> `spec-<name>` -> `change-<name>` -> `main`, merged
+top first. The spec PR's CI is red on its own (undefined steps), so nothing
+merges into `main` until the root PR holds all three.
 
 ## Rules
 - Behavior lives only in `.feature` files. Markdown holds everything else.
