@@ -1,7 +1,8 @@
 # AGENTS.md
 
 Personal site for jamesakent.com, built spec-first. Start with
-`docs/roadmap.md` (phases) and `docs/adr/` (decisions, especially ADR 0001 on
+`docs/roadmap.md` (phases), `docs/references.md` (where the approach comes from)
+and `docs/adr/` (decisions, especially ADR 0001 on
 where specs and docs live).
 
 ## Layout
